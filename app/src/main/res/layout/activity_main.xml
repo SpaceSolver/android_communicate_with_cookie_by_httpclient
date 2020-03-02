@@ -31,12 +31,14 @@
                 android:id="@+id/CommWithCookieButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onConnectWithCookieButtonClicked"
                 android:text="@string/button_title_with_cookie" />
 
             <Button
                 android:id="@+id/CommWithOutCookieButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onConnectWithOutCookieButtonClicked"
                 android:text="@string/button_title_without_cookie" />
         </LinearLayout>
 
