@@ -40,6 +40,20 @@
                 android:layout_height="wrap_content"
                 android:onClick="onConnectWithOutCookieButtonClicked"
                 android:text="@string/button_title_without_cookie" />
+
+            <Button
+                android:id="@+id/CommunicateWithWebViewButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onConnectWithWebViewButtonClicked"
+                android:text="@string/button_title_use_webview" />
+
+            <Button
+                android:id="@+id/ClearResultButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClearButtonClicked"
+                android:text="@string/button_title_clear" />
         </LinearLayout>
 
         <TextView
@@ -54,6 +68,6 @@
             android:id="@+id/ResultWebView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_weight="4" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

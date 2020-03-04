@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -68,5 +69,21 @@ public class MainActivity extends AppCompatActivity {
         log(">> start w/o cookie");
 
         log("<< finish w/o cookie");
+    }
+
+    public void onConnectWithWebViewButtonClicked(View view) {
+        log(">> start by WebView ");
+        String url = getString(R.string.default_url);
+        resultLoadView.getSettings().setJavaScriptEnabled(true);
+        resultLoadView.setWebViewClient(new MyWebViewClient());
+        CookieManager cm = CookieManager.getInstance();
+        cm.setAcceptCookie(true);
+        cm.setAcceptThirdPartyCookies(resultLoadView, true);
+        resultLoadView.loadUrl(url);
+        log("<< finish by WebView");
+    }
+
+    public void onClearButtonClicked(View view) {
+        resultLoadView.loadUrl("");
     }
 }

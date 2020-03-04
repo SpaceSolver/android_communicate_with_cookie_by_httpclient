@@ -3,4 +3,8 @@
     <string name="title_string">Communicate w/ cookie by HttpClient</string>
     <string name="button_title_with_cookie">w/</string>
     <string name="button_title_without_cookie">w/o</string>
+    <string name="button_title_use_webview">webview</string>
+    <string name="button_title_clear">clear</string>
+
+    <string name="default_url">https://www.google.com/</string>
 </resources>
