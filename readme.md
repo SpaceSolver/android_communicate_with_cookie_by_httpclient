@@ -1,5 +1,11 @@
 # HttpClientでのcookie有効な通信
 
+# わかったこと
+
+* WebViewで取得したcookieをHttpClient(volley)で利用する方法
+* HttpClient(volley)でcookie有効にする方法
+* `CookieManager`クラスは **2種類** あるので使い分けに気を付ける
+
 # 参考URL(と、読んだ感想)
 
 * https://stackoverflow.com/questions/3587254/how-do-i-manage-cookies-with-httpclient-in-android-and-or-java
@@ -44,3 +50,53 @@
 
 * [参考記事](https://qiita.com/YukiAsu/items/e4c92d0a9f4f9ba2ecdb)を元に実装する
 
+## 注意点
+
+* `CookieManager`クラスは **2種類** ある
+   * `android.webkit.CookieManager`
+      * webviewでのcookieを制御するための物
+   * `java.net.CookieManager`
+      * HttpClientでのcookieを制御するための物
+   * 管理データ自体は独立の様なので、気を付ける
+* 想定アプリはおそらく、、、
+   * ログイン系の処理 => HttpClient
+   * 広告を出す系 => WebView
+   * なので、双方向にcookieを共有する必要があるかもしれない
+
+# アプリ概観
+
+## やってること
+
+* `WebView`側でcookieを取得しておいて、
+* HttpClient (Volley) の通信で利用する
+
+パッとcookieの中身まで把握してやり取りできるサーバが無かったので
+通信処理が楽そうなwebviewでcookieを取得する様にした
+
+## UIと機能
+
+* [W/]ボタン
+   * HttpClient(Volley)でCookie**有効**でgoogle.comを表示します
+   * レスポンスはそのまま下部のwebviewで`loadData()`します
+* [W/O]ボタン
+   * HttpClient(Volley)でCookie**無効**でgoogle.comを表示します
+   * レスポンスはそのまま下部のwebviewで`loadData()`します
+   * **一度[W/]ボタンで通信した後だとcookie有効な結果が見えます**
+      * Volleyのキャッシュが効いてるから、と想定
+* [WEBVIEW]ボタン
+   * webviewでcookie有効にgoogle.comにアクセス
+   * googleアカウントにログインしてcookieを生成しておいてください
+* [CLEAR]ボタン
+   * webviewの表示をクリア(表示のクリアのみ)
+
+## 確認内容と手順
+
+* HttpClientでのcookie**有効**な通信
+   * [WEBVIEW]ボタンで表示したviewでgoogleアカウントにログイン
+   * [CLEAR]ボタンで表示を消す
+   * [W/]ボタンを押す
+      * googleアカウントに **ログインした状態** のgoogle.comを表示できる
+* HttpClientでのcookie**無効**な通信
+   * 一度アプリを終了させる（Volleyキャッシュを消すため）
+   * [W/O]ボタンを押す
+      * googleアカウントに **ログインしてない状態** のgoogle.comを表示できる
