@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView logView;
     private WebView resultLoadView;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         logView = (TextView)findViewById(R.id.LogTextView);
         resultLoadView = (WebView)findViewById(R.id.ResultWebView);
+        requestQueue = Volley.newRequestQueue(this);
     }
 
     private void log(String s) {
@@ -38,9 +40,13 @@ public class MainActivity extends AppCompatActivity {
     public void onConnectWithCookieButtonClicked(View view) {
         log(">> start w/ cookie");
 
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://www.google.com";
+        log("<< finish w/ cookie");
+    }
+
+    public void onConnectWithOutCookieButtonClicked(View view) {
+        log(">> start w/o cookie");
+
+        String url = getString(R.string.default_url);
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -60,13 +66,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
-        log("<< finish w/ cookie");
-    }
-
-    public void onConnectWithOutCookieButtonClicked(View view) {
-        log(">> start w/o cookie");
+        requestQueue.add(stringRequest);
 
         log("<< finish w/o cookie");
     }
